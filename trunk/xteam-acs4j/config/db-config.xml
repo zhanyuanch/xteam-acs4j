@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<servers default="ASC4JDB" isViewLog="true">	<!-- 必须设置默认的数据库服务名 default 的值 -->
+	<dbserver name="ASC4JDB">
+		<property name="implclass">com.toms.commons.dbserver.DefaultDBSImpl</property>
+		
+		<!-- 
+		<property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
+		<property name="hibernate.connection.url">jdbc:oracle:thin:@218.206.4.24:1521/ussddb</property>
+		
+		<property name="hibernate.connection.username">testapp</property>
+		<property name="hibernate.connection.password">123321</property>
+		 -->
+		 
+		<property name="hibernate.connection.datasource">java:/comp/env/jdbc/testApp</property>
+
+		<property name="jdbc.fetch_size">30</property>
+		<property name="jdbc.batch_size">30</property>
+		<property name="jdbc.use_scrollable_resultset">false</property>
+
+ 		<property name="hibernate.cache.use_second_level_cache">false</property>
+ 		<property name="hibernate.cache.use_query_cache">false</property>
+ 		<property name="hibernate.cache.use_structured_entries">false</property>
+		<property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
+
+		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+	
+		<property name="hibernate.current_session_context_class">thread</property>
+	
+		<property name="hibernate.show_sql">false</property>
+
+	</dbserver>
+</servers>
