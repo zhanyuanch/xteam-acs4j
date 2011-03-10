@@ -39,7 +39,7 @@ public interface AcsUserRoleFace {
 	
 	/**
 	 * 新增角色信息
-	 * @param role 
+	 * @param role  角色对象信息
 	 * @return void
 	 * @author:Leo
 	 */
@@ -47,7 +47,7 @@ public interface AcsUserRoleFace {
 	
 	/**
 	 * 修改角色信息
-	 * @param role 
+	 * @param role 角色对象信息
 	 * @return void
 	 * @author:Leo
 	 */
