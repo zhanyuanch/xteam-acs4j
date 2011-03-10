@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <asc4j>
 <!-- 用于描述数据库接口的实现类路径 -->
-<dbface class="">
+<dbface class="2">
 
 </dbface>
 
