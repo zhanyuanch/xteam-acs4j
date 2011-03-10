@@ -8,6 +8,13 @@ public class PurviewFunDtype implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * com.xteam.asc4j.module.entities
+	 * PurviewFunDtype.java   long
+	 * Administrator
+	 */
+	private static final long serialVersionUID = -5402064653589587708L;
+
 	private String id;
 
 	private String funId;

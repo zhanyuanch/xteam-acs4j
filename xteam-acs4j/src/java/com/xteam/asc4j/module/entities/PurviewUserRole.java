@@ -8,6 +8,13 @@ public class PurviewUserRole implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * com.xteam.asc4j.module.entities
+	 * PurviewUserRole.java   long
+	 * Administrator
+	 */
+	private static final long serialVersionUID = -6728288570557552588L;
+
 	private String id;
 
 	private String userId;

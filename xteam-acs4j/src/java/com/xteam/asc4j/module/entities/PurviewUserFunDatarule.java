@@ -8,6 +8,13 @@ public class PurviewUserFunDatarule implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * com.xteam.asc4j.module.entities
+	 * PurviewUserFunDatarule.java   long
+	 * Administrator
+	 */
+	private static final long serialVersionUID = 6852815985681797011L;
+
 	private String id;
 
 	private String userId;
