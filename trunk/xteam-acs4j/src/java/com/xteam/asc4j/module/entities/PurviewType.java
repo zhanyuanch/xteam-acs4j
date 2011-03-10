@@ -8,6 +8,13 @@ public class PurviewType implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * com.xteam.asc4j.module.entities
+	 * PurviewType.java   long
+	 * Administrator
+	 */
+	private static final long serialVersionUID = -8453545858908201976L;
+
 	private Integer purId;
 
 	private String type;

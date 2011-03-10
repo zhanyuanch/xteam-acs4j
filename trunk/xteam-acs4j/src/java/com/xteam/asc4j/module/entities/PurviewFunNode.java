@@ -8,6 +8,13 @@ public class PurviewFunNode implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * com.xteam.asc4j.module.entities
+	 * PurviewFunNode.java   long
+	 * Administrator
+	 */
+	private static final long serialVersionUID = -278100291914748956L;
+
 	private String id;
 
 	private String pfunId;

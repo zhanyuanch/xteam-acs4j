@@ -8,6 +8,13 @@ public class PurviewRoleFunDatarule implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * com.xteam.asc4j.module.entities
+	 * PurviewRoleFunDatarule.java   long
+	 * Administrator
+	 */
+	private static final long serialVersionUID = -6734315288963411341L;
+
 	private String id;
 
 	private String roleId;

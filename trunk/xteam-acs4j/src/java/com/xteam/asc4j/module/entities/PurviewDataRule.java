@@ -8,6 +8,13 @@ public class PurviewDataRule implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * com.xteam.asc4j.module.entities
+	 * PurviewDataRule.java   long
+	 * Administrator
+	 */
+	private static final long serialVersionUID = -689523844260217009L;
+
 	private String druleId;
 
 	private String pdruleId;
