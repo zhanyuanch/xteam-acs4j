@@ -3,13 +3,11 @@
  * All rights reserved. 
  */
 /*
- * File：AppConfig.java
+ * File：SysConfig.java
  * History:
- *       2008-12-18: Initially created, 汤垲峰.
+ *       2011-3-10: Initially created, 汤垲峰.
  */
 package com.xteam.asc4j.config;
-
-import java.util.List;
 
 import com.tangkf.utils.CommonUtils;
 import com.toms.config.ConfigBuilder;
@@ -41,95 +39,60 @@ public class SysConfig {
 	}
 	
 	/**
-	 * 返回整个游戏节点
+	 * 返回根节点下的nodeName 节点，如果节点名重复，将返回第一个节点
 	 * @author 汤垲峰 2009-11-16
-	 * @param gameType
+	 * @param nodeName
 	 * @return
 	 */
-	public static ConfigNode getNode(String gameType){
-		ConfigNode cn	= root.getOneChildByName(gameType);
+	public static ConfigNode getNode(String nodeName){
+		ConfigNode cn	= root.getOneChildByName(nodeName);
 		return cn;
 	}
 	
 	/**
-	 * 返回游戏的孩子节点表
-	 * @author 汤垲峰 2009-11-16
-	 * @param gameType
-	 * @param name
-	 * @return
-	 */
-	public static List<ConfigNode> getNodeChildren(String gameType,String name){
-		ConfigNode cn	= root.getOneChildByName(gameType);
-		return cn.getChildrenByName(name);
-	}
-	
-	/**
-	 * 返回指定游戏类型的，指定属性的值
+	 * 返回根节点下 nodeName 节点的 key 属性值
 	 * @author 汤垲峰 2009-11-11
-	 * @param gameType
-	 * @param keyName
+	 * @param nodeName
+	 * @param key
 	 * @return
 	 */
-	public static String getNodeProperty(String gameType,String keyName){
-		ConfigNode cn	= root.getOneChildByName(gameType);
-		return cn.getProperty(keyName);
+	public static String getProperty(String nodeName,String key){
+		ConfigNode cn	= root.getOneChildByName(nodeName);
+		return cn.getProperty(key);
 	}
 	
 	/**
-	 * 返回整形数字
+	 * 返回根节点下 nodeName 节点的 key 属性的值，并转换为整形
 	 * @author 汤垲峰 2009-11-25
 	 * @param nodeName
 	 * @param key
 	 * @return
 	 */
-	public static int getNodePropertyInt(String nodeName,String key){
-		String intvalue	= getNodeProperty(nodeName,key);
+	public static int getProperty2Int(String nodeName,String key){
+		String intvalue	= getProperty(nodeName,key);
 		return CommonUtils.parseInt(intvalue);
 	}
 	
-	
 	/**
-	 * 返回整形属性
+	 * 返回根节点下 nodeName 节点的 key 属性的值，并转换为浮点型
 	 * @author 汤垲峰 2009-12-14
-	 * @param gameType
-	 * @param keyName
+	 * @param nodeName
+	 * @param key
 	 * @return
 	 */
-	public static String getProperty(String gameType,String keyName){
-		return getNodeProperty(gameType,keyName);
+	public static double getProperty2Double(String nodeName,String key){
+		return CommonUtils.parseFloat(getProperty(nodeName,key));
 	}
 	
 	/**
-	 * 返回整形属性
-	 * @author 汤垲峰 2009-12-14
-	 * @param gameType
-	 * @param keyName
-	 * @return
-	 */
-	public static int getIntProperty(String gameType,String keyName){
-		return CommonUtils.parseInt(getNodeProperty(gameType,keyName));
-	}
-	
-	/**
-	 * 返回浮点型属性
-	 * @author 汤垲峰 2009-12-14
-	 * @param gameType
-	 * @param keyName
-	 * @return
-	 */
-	public static double getDoubleProperty(String gameType,String keyName){
-		return CommonUtils.parseFloat(getNodeProperty(gameType,keyName));
-	}
-	
-	/**
-	 * 返回布尔型
+	 * 返回根节点下 nodeName 节点的 key 属性的值，并转换为boolean
 	 * @author 汤垲峰 2009-11-25
 	 * @param nodeName
 	 * @param key
 	 * @return
 	 */
-	public static boolean getNodePropertyBoolean(String nodeName,String key){
-		String bvalue	= getNodeProperty(nodeName,key);
+	public static boolean getProperty2Boolean(String nodeName,String key){
+		String bvalue	= getProperty(nodeName,key);
 		return CommonUtils.parseBoolean(bvalue);
 	}
 	
@@ -153,15 +116,15 @@ public class SysConfig {
 	}
 	
 	/**
-	 * 返回指定游戏类型的制定字段值
+	 * 返回根节点下 nodeName 节点下 childNodeName 节点的节点值
 	 * @author 汤垲峰 2009-11-11
-	 * @param gameType
 	 * @param nodeName
+	 * @param childNodeName
 	 * @return
 	 */
-	public static String getNodeValue(String gameType,String nodeName){
-		ConfigNode cn	= root.getOneChildByName(gameType);
-		return cn.getOneChildByName(nodeName).getNodeValue();
+	public static String getNodeValue(String nodeName,String childNodeName){
+		ConfigNode cn	= root.getOneChildByName(nodeName);
+		return cn.getOneChildByName(childNodeName).getNodeValue();
 	}
 	
 	/**
@@ -171,11 +134,11 @@ public class SysConfig {
 	 * @author 汤垲峰 2009-2-20
 	 */
 	public static void initialize(){
-		initialize("config/sys-config.xml");
+		initialize("config/asc4j-config.xml");
 	}
 	
 	public static void main(String[] args){
 		initialize();
-		//System.err.println(SysConfig.getIntProperty("sys", "xxx"));
+		System.err.println(SysConfig.getProperty2Int("dbface", "class"));
 	}
 }
