@@ -7,6 +7,8 @@
  */
 package com.xteam.asc4j.face;
 
+import java.util.Map;
+
 import com.xteam.asc4j.base.PageInfo;
 import com.xteam.asc4j.module.entities.PurviewRole;
 import com.xteam.asc4j.module.entities.PurviewUser;
@@ -55,20 +57,20 @@ public interface AcsUserRoleFace {
 	
 	/**
 	 * 批量修改角色信息
-	 * @param role 目标值
+	 * @param columns 要修改的字段的值
 	 * @param con  更新条件，eg：and id='xx'
-	 * @return void
+	 * @return int 受影响的数据条数
 	 * @author:Leo
 	 */
-	void updateRoles(PurviewRole role,String con);
+	int updateRoles(Map<String, Object> columns,String con);
 	
 	/**
 	 * 批量删除角色信息
 	 * @param rids 角色id数组
-	 * @return void
+	 * @return int 受影响的数据条数
 	 * @author:Leo
 	 */
-	void deleteRoles(String[] rids);
+	int deleteRoles(String[] rids);
 	
 	/**
 	 * 设置用户角色
@@ -83,16 +85,16 @@ public interface AcsUserRoleFace {
 	 * 删除用户的指定角色
 	 * @param userid 用户id
 	 * @param roleid 用于删除的角色id，数组类型 
-	 * @return void
+	 * @return int 受影响的数据条数
 	 * @author:Leo
 	 */
-	void deleteRelation(String userid,String[] roleid);
+	int deleteRelation(String userid,String[] roleid);
 	
 	/**
 	 * 删除指定用户和所有角色之间的关系
 	 * @param userid 用户ID 
-	 * @return void
+	 * @return int 受影响的数据条数
 	 * @author:Leo
 	 */
-	void deleteAllRelation(String userid);
+	int deleteAllRelation(String userid);
 }

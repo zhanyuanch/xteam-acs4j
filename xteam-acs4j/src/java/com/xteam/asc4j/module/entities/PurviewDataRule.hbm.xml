@@ -8,7 +8,7 @@
     <class name="com.xteam.asc4j.module.entities.PurviewDataRule" table="purview_data_rule">
         <id name="druleId" type="java.lang.String">
             <column name="DRULE_ID" length="32" />
-            <generator class="assigned" />
+            <generator class="uuid.hex" />
         </id>
         <property name="pdruleId" type="java.lang.String">
             <column name="PDRULE_ID" length="32">
