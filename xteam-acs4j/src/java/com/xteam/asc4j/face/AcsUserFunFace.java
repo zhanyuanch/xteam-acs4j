@@ -34,7 +34,7 @@ public interface AcsUserFunFace {
 	 * @author:Leo
 	 */
 	List<PurviewFunNode> getFunNodeList(int start, int length,
-			PurviewFunNode node);
+			Map<String,Object> node);
 	
 	/**
 	 * 根据用户id，获得对应的功能列表信息
