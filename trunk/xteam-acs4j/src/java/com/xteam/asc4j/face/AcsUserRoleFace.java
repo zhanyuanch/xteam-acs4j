@@ -27,7 +27,7 @@ public interface AcsUserRoleFace {
 	 * @return List<PurviewRole>
 	 * @author:Leo
 	 */
-	PageInfo<PurviewRole> getRoleList(int start,int length,PurviewRole con);
+	PageInfo<PurviewRole> getRoleList(int start,int length,Map<String,Object> con);
 	
 	/**
 	 * 获得对应用的角色信息
