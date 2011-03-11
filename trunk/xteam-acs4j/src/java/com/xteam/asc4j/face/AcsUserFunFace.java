@@ -129,4 +129,62 @@ public interface AcsUserFunFace {
 	 * @author:Leo
 	 */
 	int deleteAllRoleFunNode(String roleid);
+	
+	/**
+	 * 设置用户的功能模块前线
+	 * @param userid 用户id
+	 * @param funid 功能模块id
+	 * @param p  权限表数据id
+	 * @return void
+	 * @author:Leo
+	 */
+	void setUserFunPermission(String userid,String funid,int[] p);
+	
+	/**
+	 * 删除指定用户、指定模块的权限
+	 * @param userid 用户id
+	 * @param funid 功能模块id
+	 * @param p 权限表
+	 * @return int 受影响的数据条数
+	 * @author:Leo
+	 */
+	int deleteUserFunPermission(String userid,String funid,int[] p);
+	
+	/**
+	 * 删除指定用户下的该功能模块的所有权限
+	 * @param userid 用户id
+	 * @param funid 功能模块id
+	 * @return int
+	 * @author:Leo
+	 */
+	int deleteAllUserFunPermission(String userid,String funid);
+	
+	/**
+	 * 设置角色的功能模块权限
+	 * @param roleid 角色id
+	 * @param funid 功能id
+	 * @param p 权限数据id
+	 * @return void
+	 * @author:Leo
+	 */
+	void setRoleFunPermission(String roleid,String funid,int[] p);
+	
+	/**
+	 * 删除指定角色、指定模块的权限
+	 * @param roleid 角色ID
+	 * @param funid 功能模块id
+	 * @param p 权限表
+	 * @return int 受影响的数据条数
+	 * @author:Leo
+	 */
+	int deleteRoleFunPermission(String roleid,String funid,int[] p);
+	
+	/**
+	 * 删除指定角色下的该功能模块的所有权限
+	 * @param roleid 角色id
+	 * @param funid 功能模块id
+	 * @return int 受影响的数据条数
+	 * @author:Leo
+	 */
+	int deleteAllRoleFunPermission(String roleid,String funid);
 }
