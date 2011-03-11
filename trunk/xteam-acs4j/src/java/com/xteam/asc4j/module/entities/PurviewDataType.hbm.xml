@@ -8,7 +8,7 @@
     <class name="com.xteam.asc4j.module.entities.PurviewDataType" table="purview_data_type">
         <id name="id" type="java.lang.String">
             <column name="ID" length="32" />
-            <generator class="assigned" />
+            <generator class="uuid.hex" />
         </id>
         <property name="code" type="java.lang.String">
             <column name="CODE" length="32">

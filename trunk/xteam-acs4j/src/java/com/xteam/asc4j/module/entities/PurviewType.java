@@ -15,7 +15,7 @@ public class PurviewType implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = -8453545858908201976L;
 
-	private Integer purId;
+	private Integer id;
 
 	private String type;
 
@@ -31,12 +31,12 @@ public class PurviewType implements java.io.Serializable {
 
 	/** minimal constructor */
 	public PurviewType(Integer purId) {
-		this.purId = purId;
+		this.id = purId;
 	}
 
 	/** full constructor */
 	public PurviewType(Integer purId, String type, String name, String remark) {
-		this.purId = purId;
+		this.id = purId;
 		this.type = type;
 		this.name = name;
 		this.remark = remark;
@@ -45,11 +45,11 @@ public class PurviewType implements java.io.Serializable {
 	// Property accessors
 
 	public Integer getPurId() {
-		return this.purId;
+		return this.id;
 	}
 
 	public void setPurId(Integer purId) {
-		this.purId = purId;
+		this.id = purId;
 	}
 
 	public String getType() {
