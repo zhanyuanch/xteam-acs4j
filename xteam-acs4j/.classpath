@@ -2,10 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0_18"/>
-	<classpathentry kind="lib" path="/XMLib/openLib/hibernate-3.3.2/hibernate3.jar"/>
 	<classpathentry kind="lib" path="/XMLib/ourLib/config4j/config4j-1.6.jar"/>
 	<classpathentry kind="lib" path="/XMLib/openLib/xml/dom4j-1.6.1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CommonTools"/>
 	<classpathentry kind="lib" path="/XMLib/ourLib/jdbc/mysql-connector-java-5.1.13-bin.jar"/>
+	<classpathentry kind="lib" path="/XMLib/openLib/log/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="/XMLib/ourLib/biglib/Hibernate-3.3.2-ALL.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -7,6 +7,8 @@
  */
 package com.xteam.asc4j.db;
 
+import java.net.URL;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -73,14 +75,30 @@ public class AcsSessions {
 			return null;
 		}
 		if (!CommonUtils.isEmpty(n2.getNodeValue())) {
-			Configuration cfg = new Configuration()
-					.configure("n2.getNodeValue()");
+			Configuration cfg = new Configuration();
+			loadMapping(cfg);
+			cfg.configure(n2.getNodeValue());
 			factory = cfg.buildSessionFactory();
 			return factory;
 		}
 		return null;
 	}
 
+	private static void loadMapping(Configuration cfg){
+		try {
+			ConfigNode r= new ConfigBuilder("/mapping.xml").getRoot();
+			for(ConfigNode n : r.getChildrenList()){
+				String p = n.getProperty("resource");
+				URL url = Thread.currentThread().getContextClassLoader().getResource(p);
+				if(null==url){
+					continue;
+				}
+				cfg.addFile(url.getPath());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * 获得当前线程的Session
 	 * 
@@ -97,5 +115,9 @@ public class AcsSessions {
 			local.set(session);
 		}
 		return session;
+	}
+	
+	public static void main(String[] args) {
+		System.err.println(currentSession());
 	}
 }
