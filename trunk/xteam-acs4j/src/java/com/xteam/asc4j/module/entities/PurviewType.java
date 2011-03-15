@@ -76,4 +76,12 @@ public class PurviewType implements java.io.Serializable {
 		this.remark = remark;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 }

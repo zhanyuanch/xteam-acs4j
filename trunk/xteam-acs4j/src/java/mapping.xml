@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings>
+	<mapping resource="com/xteam/asc4j/module/entities/PurviewDataRule.hbm.xml" />
+	<mapping resource="com/xteam/asc4j/module/entities/PurviewDataType.hbm.xml" />
+	<mapping resource="com/xteam/asc4j/module/entities/PurviewFunDtype.hbm.xml" />
+	<mapping resource="com/xteam/asc4j/module/entities/PurviewFunNode.hbm.xml" />
+	<mapping resource="com/xteam/asc4j/module/entities/PurviewRole.hbm.xml" />
+	<mapping resource="com/xteam/asc4j/module/entities/PurviewRoleFunDatarule.hbm.xml" />
+	<mapping resource="com/xteam/asc4j/module/entities/PurviewType.hbm.xml" />
+	<mapping resource="com/xteam/asc4j/module/entities/PurviewUser.hbm.xml" />
+	<mapping resource="com/xteam/asc4j/module/entities/PurviewUserFunDatarule.hbm.xml" />
+	<mapping resource="com/xteam/asc4j/module/entities/PurviewUserRole.hbm.xml" />
+</mappings>
