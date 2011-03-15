@@ -134,11 +134,11 @@ public class SysConfig {
 	 * @author 汤垲峰 2009-2-20
 	 */
 	public static void initialize(){
-		initialize("config/asc4j-config.xml");
+		initialize("/asc4j-config.xml");
 	}
 	
 	public static void main(String[] args){
 		initialize();
-		System.err.println(SysConfig.getProperty2Int("dbface", "class"));
+		System.err.println(SysConfig.getNode("session-factory-class").getNodeValue());
 	}
 }
