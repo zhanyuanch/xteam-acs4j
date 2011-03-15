@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<acs4j>
+	<!-- 获得AcsSessionFactory的实现类 -->
+	<session-factory-class>aaa</session-factory-class>
+	<!-- hibernate数据库配置的xml文件地址 -->
+	<db-xml>bbbb</db-xml>
+</acs4j>
