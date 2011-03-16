@@ -60,8 +60,9 @@ public class GenericDaoImple<T> implements GenericDao<T> {
 
 	public void executeHQL(String hql, Object[] params) {
 		Session ses = this.getDaoSession();
-		Transaction tx = ses.beginTransaction();
+		Transaction tx=null;
 		try {
+			tx  = ses.beginTransaction();
 			Query q = ses.createQuery(hql);
 			if (params != null && params.length != 0) {
 				for (int i = 0; i < params.length; i++) {
@@ -71,7 +72,9 @@ public class GenericDaoImple<T> implements GenericDao<T> {
 			q.executeUpdate();
 			tx.commit();
 		} catch (RuntimeException e) {
-			tx.rollback();
+			if(null!=tx){
+				tx.rollback();
+			}
 			throw e;
 		} finally {
 			ses.close();
@@ -84,8 +87,9 @@ public class GenericDaoImple<T> implements GenericDao<T> {
 
 	public void executeSQL(String sql, Object[] params) {
 		Session ses = this.getDaoSession();
-		Transaction tx = ses.beginTransaction();
+		Transaction tx =null;
 		try {
+			tx = ses.beginTransaction();
 			SQLQuery q = ses.createSQLQuery(sql);
 			if (params != null && params.length != 0) {
 				for (int i = 0; i < params.length; i++) {
@@ -95,7 +99,9 @@ public class GenericDaoImple<T> implements GenericDao<T> {
 			q.executeUpdate();
 			tx.commit();
 		} catch (RuntimeException e) {
-			tx.rollback();
+			if(null!=tx){
+				tx.rollback();
+			}
 			throw e;
 		} finally {
 			ses.close();
@@ -105,17 +111,25 @@ public class GenericDaoImple<T> implements GenericDao<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
 		Session ses = this.getSession();
-		List<T> r =null;
+		List<T> r = null;
 		try {
-			 r = ses.createCriteria(cls).list();
+			r = ses.createCriteria(cls).list();
 		} finally {
 			ses.close();
 		}
 		return r;
 	}
 
+	@SuppressWarnings("unchecked")
 	public T findById(Serializable id) {
-		return null;
+		Session ses = this.getSession();
+		T ret = null;
+		try {
+			ret = (T) ses.load(cls, id);
+		} finally {
+			ses.close();
+		}
+		return ret;
 	}
 
 	public List<T> findByProperty(String propertyName, Object value) {
@@ -135,35 +149,162 @@ public class GenericDaoImple<T> implements GenericDao<T> {
 	}
 
 	public List getListByHQL(String hql, Object[] params, int start, int length) {
-		return null;
+		Session ses = this.getSession();
+		try {
+			Query query = ses.createQuery(hql);
+			if (params != null && params.length != 0) {
+				for (int i = 0; i < params.length; i++) {
+					query.setParameter(i, params[i]);
+				}
+			}
+			if (length != 0) {
+				query.setMaxResults(length);
+				query.setFirstResult(start);
+			}
+			List rs = query.list();
+			return rs;
+		} catch (RuntimeException re) {
+			throw re;
+		} finally {
+			ses.close();
+		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Object[]> getListBySQL(String sql, Object[] params, int start,
 			int length) {
-		return null;
+		Session ses = this.getSession();
+		List<Object[]> list = null;
+		try {
+			SQLQuery query = ses.createSQLQuery(sql);
+			if (params != null && params.length != 0) {
+				for (int i = 0; i < params.length; i++) {
+					query.setParameter(i, params[i]);
+				}
+			}
+			if (length != 0) {
+				query.setMaxResults(length);
+				query.setFirstResult(start);
+			}
+			list = query.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ses.close();
+		}
+		return list;
 	}
 
 	public Long getMaxByProperty(String propertyName, String tableName,
 			String wherehql, Object[] params) {
-		return null;
+		Session ses = this.getSession();
+		String hql = "select max(o." + propertyName + ") from " + tableName
+				+ " o where 1=1 ";
+		if (!CommonUtils.isEmpty(wherehql)) {
+			hql += wherehql;
+		}
+		Query query = ses.createQuery(hql);
+		if (params != null && params.length != 0) {
+			for (int i = 0; i < params.length; i++) {
+				query.setParameter(i, params[i]);
+			}
+		}
+		try {
+			Long max = (Long) query.uniqueResult();
+			max = max == null ? 0 : max;
+			return max;
+		} catch (RuntimeException re) {
+			throw re;
+		} finally {
+			ses.close();
+		}
 	}
 
 	public Long getMinByProperty(String propertyName, String tableName,
 			String wherehql, Object[] params) {
-		return null;
+		Session ses = this.getSession();
+		String hql = "select min(o." + propertyName + ") from " + tableName
+				+ " o where 1=1 ";
+		if (!CommonUtils.isEmpty(wherehql)) {
+			hql += wherehql;
+		}
+		Query query = ses.createQuery(hql);
+		if (params != null && params.length != 0) {
+			for (int i = 0; i < params.length; i++) {
+				query.setParameter(i, params[i]);
+			}
+		}
+		try {
+			Long max = (Long) query.uniqueResult();
+			return max;
+		} catch (RuntimeException re) {
+			throw re;
+		} finally {
+			ses.close();
+		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public PageInfo<T> getScrollData(int firstindex, int maxresult,
 			String wherehql, Object[] queryParams,
 			LinkedHashMap<String, String> orderby) {
-		return null;
+		Session ses = this.getSession();
+		PageInfo<T> queryResult = new PageInfo<T>();
+		try {
+			String hql = "select o from "
+					+ cls.getName()
+					+ " o "
+					+ (wherehql == null || "".equals(wherehql.trim()) ? ""
+							: "where " + wherehql) + buildOrderby(orderby);
+			Query query = ses.createQuery(hql);
+			setQueryParams(query, queryParams);
+			queryResult.setTotalCount(query.list().size());
+			if (firstindex != -1 && maxresult != -1) {
+				query.setFirstResult(firstindex).setMaxResults(maxresult);
+			}
+			queryResult.setDataList(query.list());
+		} finally {
+			ses.close();
+		}
+		return queryResult;
+	}
+
+	private void setQueryParams(Query query, Object[] queryParams) {
+		if (queryParams != null && queryParams.length > 0) {
+			for (int i = 0; i < queryParams.length; i++) {
+				query.setParameter(i, queryParams[i]);
+			}
+		}
+	}
+
+	private String buildOrderby(LinkedHashMap<String, String> orderby) {
+		StringBuffer orderbyhql = new StringBuffer("");
+		if (orderby != null && orderby.size() > 0) {
+			orderbyhql.append(" order by ");
+			for (String key : orderby.keySet()) {
+				orderbyhql.append("o.").append(key).append(" ").append(
+						orderby.get(key)).append(",");
+			}
+			orderbyhql.deleteCharAt(orderbyhql.length() - 1);
+		}
+		return orderbyhql.toString();
 	}
 
 	public void save(T entity) {
-
+		Session ses = this.getSession();
+		try{
+			ses.save(entity);
+		}finally{
+			ses.close();
+		}
 	}
 
 	public void update(T e) {
-
+		Session ses = this.getSession();
+		try{
+			ses.merge(e);
+		}finally{
+			ses.close();
+		}
 	}
 }
