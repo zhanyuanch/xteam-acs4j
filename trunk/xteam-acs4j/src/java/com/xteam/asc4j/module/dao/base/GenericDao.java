@@ -56,16 +56,6 @@ public interface GenericDao<T> {
 	void deleteBathByIds(String idName, String[] idValues);
 
 	/**
-	 * 更新
-	 * 
-	 * @datetime 创建时间:2010-6-17 下午02:35:47
-	 * @param entity
-	 * 
-	 * @author huangchun
-	 */
-	void merge(T entity);
-
-	/**
 	 * 更新数据
 	 * @param e void
 	 * @author:Leo
@@ -93,18 +83,6 @@ public interface GenericDao<T> {
 	List<T> findAll();
 
 	/**
-	 * 分页查询
-	 * 
-	 * @datetime 创建时间:2010-6-17 下午02:36:13
-	 * @param start
-	 * @param length
-	 * @return
-	 * 
-	 * @author huangchun
-	 */
-	List<T> findList(int start, int length);
-
-	/**
 	 * 获得全部数据条数
 	 * 
 	 * @datetime 创建时间:2010-6-17 下午02:36:24
@@ -113,30 +91,6 @@ public interface GenericDao<T> {
 	 * @author huangchun
 	 */
 	int getCountOfAll();
-
-	/**
-	 * 按条件查询
-	 * 
-	 * @datetime:2010-6-22 上午10:39:38
-	 * @param t
-	 * @return
-	 * 
-	 * @author huangchun
-	 */
-	List<T> findByExample(T t);
-
-	/**
-	 * 按条件分页查询
-	 * 
-	 * @datetime 创建时间:2010-6-17 下午03:26:36
-	 * @param t
-	 * @param start
-	 * @param length
-	 * @return
-	 * 
-	 * @author huangchun
-	 */
-	List<T> findByExampleByPage(T t, int start, int length);
 
 	/**
 	 * 按属性查询
@@ -255,18 +209,6 @@ public interface GenericDao<T> {
 	public void executeHQL(String hql,Object[] params);
 
 	/**
-	 * 执行HQL语句 推荐批量删除 使用
-	 * 
-	 * @param hql
-	 *            语句
-	 * @param param
-	 *            hql 语句中的参数
-	 * 
-	 * @author huangchun
-	 */
-	public int executeDelHQL(String hql, String param);
-
-	/**
 	 * 获得Session句柄
 	 * 
 	 * @return Session
@@ -274,13 +216,4 @@ public interface GenericDao<T> {
 	 */
 	public Session getDaoSession();
 	
-	/**
-	 * 获取列表，按指定字段排序
-	 * @param startRecord
-	 * @param length
-	 * @param order
-	 * @return List<T>
-	 * @author:Leo
-	 */
-	List<T> findList(int startRecord, int length, String order);
 }
