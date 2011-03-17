@@ -2,5 +2,13 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0_18"/>
+	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER"/>
+	<classpathentry kind="lib" path="/XMLib/openLib/log/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="/XMLib/openLib/excel/jxl.jar"/>
+	<classpathentry kind="lib" path="/XMLib/openLib/excel/poi-3.2-FINAL-20081019.jar"/>
+	<classpathentry kind="lib" path="/XMLib/openLib/ant/ant.jar"/>
+	<classpathentry kind="lib" path="/XMLib/openLib/commons/commons-fileupload-1.2.1.jar"/>
+	<classpathentry kind="lib" path="/XMLib/openLib/xml/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/XMLib/ourLib/biglib/Hibernate-3.3.2-ALL.jar" sourcepath="F:/开源开发包/hibernate/hibernate-distribution-3.3.2.GA/project/core/src/main/java"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
