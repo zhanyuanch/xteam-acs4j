@@ -18,7 +18,7 @@ import java.util.Map;
  * @author tangkf
  *
  */
-public interface IDBUtils extends IDBUPage{
+public interface IDBUtils<T> extends IDBUPage<T>{
 	
 	public static final String SQLDELETE		= " DELETE ";
 	public static final String SQLUPDATE		= " UPDATE ";
@@ -51,7 +51,7 @@ public interface IDBUtils extends IDBUPage{
 	 * @param sql
 	 * @return
 	 */
-	public List<?> executeSQLQuery(Class<?> type, String sql);
+	public List<T> executeSQLQuery(Class<T> type, String sql);
 	
 	/**
 	 * <p>
@@ -61,7 +61,7 @@ public interface IDBUtils extends IDBUPage{
 	 * @param sql
 	 * @return
 	 */
-	public List<?> executeSQLQuery(String sql);
+	public List<T> executeSQLQuery(String sql);
 
 	/**
 	 * <P>
@@ -82,7 +82,7 @@ public interface IDBUtils extends IDBUPage{
 	 * @param id
 	 * @return
 	 */
-	public Object getObject(Class<?> type,String id);
+	public T getObject(Class<T> type,String id);
 	
 	/**
 	 * <p>
@@ -92,7 +92,7 @@ public interface IDBUtils extends IDBUPage{
 	 * @param type 类型
 	 * @return 一个该类型的对象列表
 	 */
-	public List<?> getQueryResult(Class<?> type);
+	public List<T> getQueryResult(Class<T> type);
 
 	/**
 	 * <p>
@@ -119,7 +119,7 @@ public interface IDBUtils extends IDBUPage{
 	 * @param hql
 	 * @return
 	 */
-	public Object getObject(String hql);
+	public T getObject(String hql);
 	
 	/**
 	 * 根据字符串匹配来查询相应结果
@@ -128,7 +128,7 @@ public interface IDBUtils extends IDBUPage{
 	 * @param parametersMap key为自定义的key,value为需要匹配的字符串
 	 * @return 根据字符串匹配来查询相应结果
 	 */
-	public List<?> getQueryResult(String hql, Map<String, Object> parametersMap);
+	public List<T> getQueryResult(String hql, Map<String, Object> parametersMap);
 
 	/**
 	 * 查询一个HQL的结果
@@ -136,14 +136,14 @@ public interface IDBUtils extends IDBUPage{
 	 * @param hql
 	 * @return
 	 */
-	public List<?> getQueryResult(String hql);
+	public List<T> getQueryResult(String hql);
 	
 	/**
 	 * 保存一个对象
 	 * @author  tangkf
 	 * @param obj: 要保存的对象
 	 */
-	public int saveObject(Object obj);
+	public int saveObject(T obj);
 	
 
 	/**
@@ -151,21 +151,21 @@ public interface IDBUtils extends IDBUPage{
 	 * @author tangkf
 	 * @param objects
 	 */
-	public int saveObjects(List<?> objects);
+	public int saveObjects(List<T> objects);
 	
 	/**
 	 * 删除一个对象
 	 * @author tangkf
 	 * @param obj
 	 */
-	public int delete(Object obj);
+	public int delete(T obj);
 	
 	/**
 	 * 一次删除多个对象
 	 * @author tangkf
 	 * @param objects: 将要删除的对象列表
 	 */
-	public int deleteObjects(List<?> objects) ;
+	public int deleteObjects(List<T> objects) ;
 	
 	/**
 	 * 由指定的类型,ID名称和ID值列表删除对象
@@ -174,14 +174,13 @@ public interface IDBUtils extends IDBUPage{
 	 * @param idName
 	 * @param idValues
 	 */
-	public int deleteBathById(Class<?> type,String idName,String[] idValues);
+	public int deleteBathById(Class<T> type,String idName,String[] idValues);
 	
 	/**
 	 * 保存或更新一个对象，这个对象是一个entity包中的类
 	 * @author  tangkf
 	 * @param o: 将要更新的对象
 	 */
-	@Deprecated
 	public int saveOrUpdateObj(Object o);
 	
 	/**
@@ -189,14 +188,13 @@ public interface IDBUtils extends IDBUPage{
 	 * @author  tangkf
 	 * @param o: 将要更新的对象
 	 */
-	public int saveOrUpdateObject(Object o);
+	public int saveOrUpdateObject(T o);
 	
 	/**
 	 * 保存或更新一个对象列表，这个对象是一个entity包中的类
 	 * @author  tangkf
 	 * @param objects: 将要更新的对象列表
 	 */
-	@Deprecated
 	public int saveOrUpdateObjs(List<?> objects);
 	
 	/**
@@ -204,21 +202,21 @@ public interface IDBUtils extends IDBUPage{
 	 * @author  tangkf
 	 * @param objects: 将要更新的对象列表
 	 */
-	public int saveOrUpdateObjects(List<?> objects);
+	public int saveOrUpdateObjects(List<T> objects);
 	
 	/**
 	 * 更新一个对象
 	 * @author  tangkf
 	 * @param obj: 要更新的对象
 	 */
-	public int updateObject(Object obj);
+	public int updateObject(T obj);
 	
 	/**
 	 * 更新多个对象并且更新之后关闭数据库连接
 	 * @author  tangkf
 	 * @param objects:要更新的对象列表
 	 */
-	public int updateObjects(List<?> objects);
+	public int updateObjects(List<T> objects);
 
 	/**
 	 * <P>
