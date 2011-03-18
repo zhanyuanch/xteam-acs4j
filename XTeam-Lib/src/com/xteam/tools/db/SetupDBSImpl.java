@@ -47,6 +47,7 @@ public class SetupDBSImpl extends DefaultDBSImpl {
 	 * @date  2008-1-4
 	 * @see cn.com.chengjun.dbserver.DefaultDBSImpl#initialize()
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize() {
 		sessionCache		= new ThreadLocal<Session>();
@@ -58,6 +59,7 @@ public class SetupDBSImpl extends DefaultDBSImpl {
 	 * </p>
 	 * @author tangkf
 	 */
+	@SuppressWarnings("unchecked")
 	public void buildSession(){
 		Configuration conf	= this.addResources(this.buildConfig());
 		this.sessionFactory	= conf.buildSessionFactory();
