@@ -39,7 +39,7 @@ import com.xteam.tools.db.page.Page;
  * @author tangkf
  */
 @SuppressWarnings("unchecked")
-public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
+public class DefaultDBSImpl implements IHibernate, IDBUtils {
 
 	/**
 	 * 配置文件信息
@@ -326,7 +326,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 *      java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> executeSQLQuery(Class<T> type, String sql) {
+	public <T> List<T> executeSQLQuery(Class<T> type, String sql) {
 		Session ses = this.getSession();
 		List<T> list = null;
 		try {
@@ -475,7 +475,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 * @see cn.com.chengjun.dbserver.IDBUtils#getObject(java.lang.Class)
 	 */
 	@SuppressWarnings("unchecked")
-	public T getObject(Class<T> type, String id) {
+	public <T> T getObject(Class<T> type, String id) {
 		T obj = null;
 		Session ses = this.getSession();
 		obj = (T)ses.load(type, id);
@@ -489,7 +489,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 * @see cn.com.chengjun.dbserver.IDBUtils#getObject(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
-	public T getObject(String hql) {
+	public <T> T getObject(String hql) {
 		T obj = null;
 		List<T> lst = (List<T>)this.getQueryResult(hql);
 		if (lst != null && lst.size() > 0) {
@@ -503,7 +503,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 * @date 2008-1-4
 	 * @see cn.com.chengjun.dbserver.IDBUtils#getQueryResult(java.lang.Class)
 	 */
-	public List<T> getQueryResult(Class<T> type) {
+	public <T> List<T> getQueryResult(Class<T> type) {
 		List<T> lst = null;
 		lst = (List<T>)this.getQueryResult(SQLFROM + type.getName());
 		return lst;
@@ -515,7 +515,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 * @see cn.com.chengjun.dbserver.IDBUtils#getQueryResult(java.lang.String,
 	 *      java.util.Map)
 	 */
-	public List<T> getQueryResult(String hql, Map<String, Object> parametersMap) {
+	public <T> List<T> getQueryResult(String hql, Map<String, Object> parametersMap) {
 		Session ses = this.getSession();
 		List<T> list = null;
 		try {
@@ -541,7 +541,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	/**
 	 * @see com.toms.commons.dbserver.IDBUtils#getQueryResult(java.lang.String)
 	 */
-	public List<T> getQueryResult(String hql) {
+	public <T> List<T> getQueryResult(String hql) {
 		Session ses = this.getSession();
 		List<T> list = null;
 		try {
@@ -562,7 +562,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 * @see cn.com.chengjun.dbserver.IDBUtils#deleteBathById(java.lang.Class,
 	 *      java.lang.String, java.lang.String[])
 	 */
-	public int deleteBathById(Class<T> type, String idName, String[] idValues) {
+	public <T> int deleteBathById(Class<T> type, String idName, String[] idValues) {
 		String ids = DB_CommonUtils.combineStringArray(idValues, "','");
 		String hql = IDBUtils.SQLDELETE + IDBUtils.SQLFROM + type.getName()
 				+ IDBUtils.SQLWHERE + idName + IDBUtils.SQLIN + "('" + ids
@@ -576,7 +576,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 * 
 	 * @see cn.com.chengjun.dbserver.IDBUtils#delete(java.lang.Object)
 	 */
-	public int delete(T object) {
+	public <T> int delete(T object) {
 		int rst	= 0;
 		Session ses = this.getSession();
 		Transaction tx = ses.beginTransaction();
@@ -606,7 +606,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 * 
 	 * @see cn.com.chengjun.dbserver.IDBUtils#deleteObjects(java.util.List)
 	 */
-	public int deleteObjects(List<T> objects) {
+	public <T> int deleteObjects(List<T> objects) {
 		int rst	= 0;
 		Session ses = this.getSession();
 		Transaction tx = ses.beginTransaction();
@@ -667,7 +667,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 * @Date 2008-1-12
 	 * @see cn.com.chengjun.dbserver.IDBUtils#saveObjects(java.util.List)
 	 */
-	public int saveObjects(List<T> objects) {
+	public <T> int saveObjects(List<T> objects) {
 		int rst	= 0;
 		Session ses = this.getSession();
 		Transaction tx = ses.beginTransaction();
@@ -762,7 +762,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 * @Date 2008-1-12
 	 * @see cn.com.chengjun.dbserver.IDBUtils#updateObject(java.lang.Object)
 	 */
-	public int updateObject(T object) {
+	public <T> int updateObject(T object) {
 		int rst	= 0;
 		Session ses = this.getSession();
 		Transaction tx = ses.beginTransaction();
@@ -790,7 +790,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 * @Date 2008-1-12
 	 * @see cn.com.chengjun.dbserver.IDBUtils#updateObjects(java.util.List)
 	 */
-	public int updateObjects(List<T> objects) {
+	public <T> int updateObjects(List<T> objects) {
 		int rst	= 0;
 		Session ses = this.getSession();
 		Transaction tx = ses.beginTransaction();
@@ -819,7 +819,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 		return rst;
 	}
 
-	public List<T> executeSQLQuery(Class<T> type, String sql, int firstResult,
+	public <T> List<T> executeSQLQuery(Class<T> type, String sql, int firstResult,
 			int maxResult) {
 		Session ses = this.getSession();
 		List<T> list = null;
@@ -908,7 +908,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 * 分页
 	 * @see com.toms.commons.dbserver.IDBUtils#getQueryResult(java.lang.Class, int, int)
 	 */
-	public List<T> getQueryResult(Class<T> type, int firstResult, int maxResult) {
+	public <T> List<T> getQueryResult(Class<T> type, int firstResult, int maxResult) {
 		List<T> lst = null;
 		lst = (List<T>)this.getQueryResult(IDBUtils.SQLFROM + type.getName(),firstResult,maxResult);
 		return lst;
@@ -918,7 +918,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 * 分页参数
 	 * @see com.toms.commons.dbserver.IDBUtils#getQueryResult(java.lang.String, java.util.Map, int, int)
 	 */
-	public List<T> getQueryResult(String hql, Map<String,Object> parametersMap,
+	public <T> List<T> getQueryResult(String hql, Map<String,Object> parametersMap,
 			int firstResult, int maxResult) {
 		Session ses = this.getSession();
 		List<T> list = null;
@@ -948,7 +948,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 * 分页参数
 	 * @see com.toms.commons.dbserver.IDBUtils#getQueryResult(java.lang.String, int, int)
 	 */
-	public List<T> getQueryResult(String hql, int firstResult, int maxResult) {
+	public <T> List<T> getQueryResult(String hql, int firstResult, int maxResult) {
 		Session ses = this.getSession();
 		List<T> list = null;
 		try {
@@ -1053,7 +1053,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	/**
 	 * @see com.toms.commons.dbserver.IDBUPage#executeSQLQuery(java.lang.Class, java.lang.String, com.toms.commons.dbserver.page.Page)
 	 */
-	public List<T> executeSQLQuery(Class<T> type, String sql, Page page) {
+	public <T> List<T> executeSQLQuery(Class<T> type, String sql, Page page) {
 		//设置总的记录数
 		if(CommonUtils.notEmpty(page.getRowCountSQL())){
 			page.setRowsCount(getSQLCount(page.getRowCountSQL()));
@@ -1074,7 +1074,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 * 返回分页记录
 	 * @see com.toms.commons.dbserver.IDBUPage#getQueryResult(java.lang.Class, com.toms.commons.dbserver.page.Page)
 	 */
-	public List<T> getQueryResult(Class<T> type, Page page) {
+	public <T> List<T> getQueryResult(Class<T> type, Page page) {
 		//设置总的记录数
 		if(CommonUtils.notEmpty(page.getRowCountSQL())){
 			page.setRowsCount(getSQLCount(page.getRowCountSQL()));
@@ -1097,7 +1097,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 * 返回分页记录
 	 * @see com.toms.commons.dbserver.IDBUPage#getQueryResult(java.lang.String, java.util.Map, com.toms.commons.dbserver.page.Page)
 	 */
-	public List<T> getQueryResult(String hql, Map<String, Object> parametersMap, Page page) {
+	public <T> List<T> getQueryResult(String hql, Map<String, Object> parametersMap, Page page) {
 		//设置总的记录数
 		if(CommonUtils.notEmpty(page.getRowCountSQL())){
 			page.setRowsCount(getSQLCount(page.getRowCountSQL()));
@@ -1120,7 +1120,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	 * 返回分页记录
 	 * @see com.toms.commons.dbserver.IDBUPage#getQueryResult(java.lang.String, com.toms.commons.dbserver.page.Page)
 	 */
-	public List<T> getQueryResult(String hql, Page page) {
+	public <T> List<T> getQueryResult(String hql, Page page) {
 		//设置总的记录数
 		if(CommonUtils.notEmpty(page.getRowCountSQL())){
 			page.setRowsCount(getSQLCount(page.getRowCountSQL()));
@@ -1149,7 +1149,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	/**
 	 * @see com.toms.commons.dbserver.IDBUtils#executeSQLQuery(java.lang.String)
 	 */
-	public List<T> executeSQLQuery(String sql) {
+	public <T> List<T> executeSQLQuery(String sql) {
 		return this.executeSQLQuery(null, sql);
 	}
 
@@ -1163,7 +1163,7 @@ public class DefaultDBSImpl<T> implements IHibernate, IDBUtils<T> {
 	/**
 	 * @see com.toms.commons.dbserver.IDBUtils#saveOrUpdateObjects(java.util.List)
 	 */
-	public int saveOrUpdateObjects(List<T> objects) {
+	public <T> int saveOrUpdateObjects(List<T> objects) {
 		return this.saveOrUpdateObjs(objects);
 	}
 }

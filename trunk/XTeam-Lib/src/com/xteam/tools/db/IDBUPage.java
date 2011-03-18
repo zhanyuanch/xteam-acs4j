@@ -21,7 +21,7 @@ import com.xteam.tools.db.page.Page;
  * @author 汤垲峰
  *
  */
-public interface IDBUPage<T> {
+public interface IDBUPage {
 	/**
 	 * <P>
 	 * 执行SQL语句
@@ -58,7 +58,7 @@ public interface IDBUPage<T> {
 	 * @param maxResult
 	 * @return
 	 */
-	public List<T> executeSQLQuery(Class<T> type, String sql,int firstResult,int maxResult);
+	public <T> List<T> executeSQLQuery(Class<T> type, String sql,int firstResult,int maxResult);
 	
 	/**
 	 * <P>
@@ -70,7 +70,7 @@ public interface IDBUPage<T> {
 	 * @param page
 	 * @return
 	 */
-	public List<T> executeSQLQuery(Class<T> type, String sql,Page page);
+	public <T> List<T> executeSQLQuery(Class<T> type, String sql,Page page);
 	
 	/**
 	 * <P>
@@ -82,7 +82,7 @@ public interface IDBUPage<T> {
 	 * @param maxResult
 	 * @return
 	 */
-	public List<T> getQueryResult(Class<T> type,int firstResult,int maxResult);
+	public <T> List<T> getQueryResult(Class<T> type,int firstResult,int maxResult);
 	
 	/**
 	 * <P>
@@ -93,7 +93,7 @@ public interface IDBUPage<T> {
 	 * @param page
 	 * @return
 	 */
-	public List<T> getQueryResult(Class<T> type,Page page);
+	public <T> List<T> getQueryResult(Class<T> type,Page page);
 	
 	/**
 	 * <P>
@@ -106,7 +106,7 @@ public interface IDBUPage<T> {
 	 * @param maxResult
 	 * @return
 	 */
-	public List<T> getQueryResult(String hql, Map<String,Object> parametersMap,int firstResult,int maxResult);
+	public <T> List<T> getQueryResult(String hql, Map<String,Object> parametersMap,int firstResult,int maxResult);
 	
 	/**
 	 * <P>
@@ -118,7 +118,7 @@ public interface IDBUPage<T> {
 	 * @param page 分页接口
 	 * @return
 	 */
-	public List<T> getQueryResult(String hql, Map<String, Object> parametersMap,Page page);
+	public <T> List<T> getQueryResult(String hql, Map<String, Object> parametersMap,Page page);
 	
 	/**
 	 * <P>
@@ -130,7 +130,7 @@ public interface IDBUPage<T> {
 	 * @param maxResult
 	 * @return
 	 */
-	public List<T> getQueryResult(String hql,int firstResult,int maxResult);
+	public <T> List<T> getQueryResult(String hql,int firstResult,int maxResult);
 	
 	/**
 	 * <P>
@@ -142,7 +142,7 @@ public interface IDBUPage<T> {
 	 * @param maxResult
 	 * @return
 	 */
-	public List<T> getQueryResult(String hql,Page page);
+	public <T> List<T> getQueryResult(String hql,Page page);
 
 	/**
 	 * 执行一个带条件和分页的SQL语句
