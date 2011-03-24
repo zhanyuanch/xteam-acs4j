@@ -18,9 +18,28 @@ import java.util.Map;
  */
 @SuppressWarnings("unchecked")
 public abstract class AbsDbServer implements IDBServer {
+	private static final String WIN_APP_SRC = "bin/";
+	private static final String WEB_APP_SRC = "classes/";
+	
+	protected String appRoot;
 	protected String dbServName;
-	protected Map<String, String> dbServProperty;
-	protected List<String> dbServMapping;
+	protected String dbConfigPath;
+	
+	/**
+	 * 数据库服务基类构造方法。
+	 */
+	public AbsDbServer() {
+		String root = Thread.currentThread().getContextClassLoader().getResource("").toString();
+		if (root.endsWith(WIN_APP_SRC)) {
+			this.appRoot = root.substring(0, root.lastIndexOf(WIN_APP_SRC));
+		} else if (root.endsWith(WEB_APP_SRC)) {
+			this.appRoot = root.substring(0, root.lastIndexOf(WEB_APP_SRC));
+		} else {
+			this.appRoot = root;
+		}
+		this.dbServName = "";
+		this.dbConfigPath = "";
+	}
 	
 	/**
 	 * @see com.xteam.util.db.serv.IDBServer#getDbServName()
@@ -37,31 +56,17 @@ public abstract class AbsDbServer implements IDBServer {
 	}
 	
 	/**
-	 * @see com.xteam.util.db.serv.IDBServer#getDbServProperty()
+	 * @see com.xteam.util.db.serv.IDBServer#getDbConfigPath()
 	 */
-	public final Map<String, String> getDbServProperty() {
-		return this.dbServProperty;
+	public String getDbConfigPath() {
+		return this.dbConfigPath;
 	}
 	
 	/**
-	 * @see com.xteam.util.db.serv.IDBServer#setDbServProperty(java.util.Map)
+	 * @see com.xteam.util.db.serv.IDBServer#setDbConfigPath(java.lang.String)
 	 */
-	public final void setDbServProperty(Map<String, String> property) {
-		this.dbServProperty = property;
-	}
-	
-	/**
-	 * @see com.xteam.util.db.serv.IDBServer#getDbServMapping()
-	 */
-	public final List<String> getDbServMapping() {
-		return this.dbServMapping;
-	}
-	
-	/**
-	 * @see com.xteam.util.db.serv.IDBServer#setDbServMapping(java.util.List)
-	 */
-	public final void setDbServMapping(List<String> mapping) {
-		this.dbServMapping = mapping;
+	public void setDbConfigPath(String path) {
+		this.dbConfigPath = (path.startsWith("/")) ? path.substring(1) : path;
 	}
 	
 	/**

@@ -9,6 +9,7 @@
  */
 package com.xteam.util.db.serv.impl;
 
+import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -34,12 +35,19 @@ public class HibDbServer extends AbsDbServer {
 	private ThreadLocal<Session> sessionCache;
 	
 	/**
+	 * Hibernate数据库服务构造方法。
+	 */
+	public HibDbServer() {
+		super();
+		this.sessionFactory = null;
+		this.sessionCache = null;
+	}
+	
+	/**
 	 * @see com.xteam.util.db.serv.IDBServer#initialize()
 	 */
 	public void initialize() throws Exception {
-		Configuration config = new Configuration();
-		this.buildConfig(config);
-		this.addResource(config);
+		Configuration config = new Configuration().configure(new URL(this.appRoot + this.dbConfigPath));
 		this.sessionFactory = config.buildSessionFactory();
 		this.sessionCache = new ThreadLocal<Session>();
 	}
@@ -475,30 +483,6 @@ public class HibDbServer extends AbsDbServer {
 			return list;
 		} finally {
 			this.closeSession();
-		}
-	}
-	
-	/**
-	 * 组装数据库配置。
-	 * @author 袁孝均 2011-3-21
-	 * @param config
-	 */
-	private void buildConfig(Configuration config) {
-		Iterator<Entry<String, String>> cfg = this.dbServProperty.entrySet().iterator();
-		while (cfg.hasNext()) {
-			Entry<String, String> e = cfg.next();
-			config.setProperty(e.getKey(), e.getValue());
-		}
-	}
-	
-	/**
-	 * 添加数据库资源。
-	 * @author 袁孝均 2011-3-21
-	 * @param config
-	 */
-	private void addResource(Configuration config) {
-		for (String res : this.dbServMapping) {
-			config.addResource(res);
 		}
 	}
 	
