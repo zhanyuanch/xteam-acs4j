@@ -33,32 +33,26 @@ public interface IDBServer {
 	public void setDbServName(String name);
 	
 	/**
-	 * 获取数据库服务配置。
-	 * @author 袁孝均 2011-3-21
+	 * 获取数据库配置路径。
+	 * <BR>
+	 * 配置路径是相对于源代码路径上级目录的相对路径。
+	 * <BR>
+	 * 源代码路径上级目录是指：JAVA项目根目录或WEB项目的WEB-INF目录。
+	 * @author 袁孝均 2011-3-23
 	 * @return
 	 */
-	public Map<String, String> getDbServProperty();
+	public String getDbConfigPath();
 	
 	/**
-	 * 设置数据库服务配置。
-	 * @author 袁孝均 2011-3-21
-	 * @param property
+	 * 设置数据库配置路径。
+	 * <BR>
+	 * 配置路径是相对于源代码路径上级目录的相对路径。
+	 * <BR>
+	 * 源代码路径上级目录是指：JAVA项目根目录或WEB项目的WEB-INF目录。
+	 * @author 袁孝均 2011-3-23
+	 * @param path
 	 */
-	public void setDbServProperty(Map<String, String> property);
-	
-	/**
-	 * 获取数据库服务映射。
-	 * @author 袁孝均 2011-3-21
-	 * @return
-	 */
-	public List<String> getDbServMapping();
-	
-	/**
-	 * 设置数据库服务映射。
-	 * @author 袁孝均 2011-3-21
-	 * @param mapping
-	 */
-	public void setDbServMapping(List<String> mapping);
+	public void setDbConfigPath(String path);
 	
 	/**
 	 * 初始化数据库服务。

@@ -9,8 +9,6 @@
  */
 package com.xteam.util.db.factory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +63,7 @@ public class DaoFactory {
 	 * @throws Exception
 	 */
 	public final void initialize() throws Exception {
-		this.initialize("config/db-config.xml");
+		this.initialize("config/serv-config.xml");
 	}
 	
 	/**
@@ -81,27 +79,12 @@ public class DaoFactory {
 		List<ConfigNode> servs = root.getChildrenByName("server");
 		for (ConfigNode serv : servs) {
 			String servname = serv.getProperty("name");
-			String classname = serv.getProperty("class");
+			String servclass = serv.getProperty("class");
+			String configpath = serv.getProperty("path");
 			
-			Map<String, String> property = new HashMap<String, String>();
-			List<ConfigNode> pcns = serv.getChildrenByName("property");
-			for (ConfigNode pcn : pcns) {
-				String key = pcn.getProperty("name");
-				String value = pcn.getNodeValue();
-				property.put(key, value);
-			}
-			
-			List<String> mapping = new ArrayList<String>();
-			List<ConfigNode> mcns = serv.getChildrenByName("mapping");
-			for (ConfigNode mcn : mcns) {
-				String resource = mcn.getProperty("resource");
-				mapping.add(resource);
-			}
-			
-			IDBServer server = (IDBServer)ClazzLoader.loadClassByName(classname);
+			IDBServer server = (IDBServer)ClazzLoader.loadClassByName(servclass);
 			server.setDbServName(servname);
-			server.setDbServProperty(property);
-			server.setDbServMapping(mapping);
+			server.setDbConfigPath(configpath);
 			server.initialize();
 			
 			this.servCache.put(servname, server);

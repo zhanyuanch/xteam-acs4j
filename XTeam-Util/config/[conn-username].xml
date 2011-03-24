@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC 
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN" 
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.url">[dburl]</property>
+		<property name="hibernate.connection.username">[username]</property>
+		<property name="hibernate.connection.password">[password]</property>
+		<property name="hibernate.connection.driver_class">[driver]</property>
+		<property name="hibernate.dialect">[dialect]</property>
+		
+		<property name="hibernate.cache.use_second_level_cache">false</property>
+		<property name="hibernate.cache.use_query_cache">false</property>
+		<property name="hibernate.cache.use_structured_entries">false</property>
+		<property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hibernate.show_sql">false</property>
+		
+		<property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+		<property name="hibernate.c3p0.min_size">6</property>
+		<property name="hibernate.c3p0.max_size">60</property>
+		<property name="hibernate.c3p0.timeout">120</property>
+		<property name="hibernate.c3p0.max_statements">160</property>
+		<property name="hibernate.c3p0.acquire_increment">2</property>
+		<property name="hibernate.c3p0.validate">true</property>
+		<property name="hibernate.c3p0.idle_test_period">30000</property>
+		
+		<property name="hibernate.jdbc.fetch_size">45</property>
+		<property name="hibernate.jdbc.batch_size">60</property>
+		<property name="hibernate.jdbc.use_scrollable_resultset">false</property>
+		
+		<!-- 以下为数据库表资源映射 -->
+	</session-factory>
+</hibernate-configuration>
