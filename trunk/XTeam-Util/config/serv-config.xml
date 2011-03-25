@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<servers default="[defserv]">
-	<server name="[servname]" class="[servclass]" path="[configpath]"/>
-</servers>
