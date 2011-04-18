@@ -16,5 +16,12 @@ import com.xteam.asc4j.module.entities.PurviewDataRule;
  */
 public class PurviewDataRuleDaoImpl extends GenericDaoImple<PurviewDataRule> implements
 		IPurviewDataRuleDao {
-
+	private static PurviewDataRuleDaoImpl instance;
+	private PurviewDataRuleDaoImpl(){}
+	public static PurviewDataRuleDaoImpl getInstance(){
+		if(null==instance){
+			instance = new PurviewDataRuleDaoImpl();
+		}
+		return instance;
+	}
 }

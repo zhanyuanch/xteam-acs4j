@@ -15,5 +15,12 @@ import com.xteam.asc4j.module.entities.PurviewUserFunDatarule;
  *
  */
 public class PurviewUserFunDataruleDaoImpl extends GenericDaoImple<PurviewUserFunDatarule> implements IPurviewUserFunDataruleDao{
-
+	private static PurviewUserFunDataruleDaoImpl instance;
+	private PurviewUserFunDataruleDaoImpl(){}
+	public static PurviewUserFunDataruleDaoImpl getInstance(){
+		if(null==instance){
+			instance = new PurviewUserFunDataruleDaoImpl();
+		}
+		return instance;
+	}
 }

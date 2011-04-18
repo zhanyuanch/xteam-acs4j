@@ -7,9 +7,10 @@
  */
 package com.xteam.asc4j.face;
 
-import java.util.List;
 import java.util.Map;
 
+import com.xteam.asc4j.base.PageInfo;
+import com.xteam.asc4j.base.UserSqlValue;
 import com.xteam.asc4j.module.entities.PurviewFunNode;
 import com.xteam.asc4j.module.entities.PurviewRole;
 import com.xteam.asc4j.module.entities.PurviewUser;
@@ -33,8 +34,8 @@ public interface AcsUserFunFace {
 	 * @return List<PurviewFunNode>
 	 * @author:Leo
 	 */
-	List<PurviewFunNode> getFunNodeList(int start, int length,
-			Map<String,Object> node);
+	PageInfo<PurviewFunNode> getFunNodeList(int start, int length,
+			Map<String,UserSqlValue> node);
 	
 	/**
 	 * 根据用户id，获得对应的功能列表信息
@@ -44,7 +45,7 @@ public interface AcsUserFunFace {
 	 * @return List<PurviewFunNode>
 	 * @author:Leo
 	 */
-	List<PurviewFunNode> getFunNodesOfUser(int start,int length,String userid);
+	PageInfo<PurviewFunNode> getFunNodesOfUser(int start,int length,String userid);
 	
 	/**
 	 * 添加一个功能节点
@@ -67,7 +68,7 @@ public interface AcsUserFunFace {
 	 * @return int 受影响的数据条数
 	 * @author:Leo
 	 */
-	int updateFunNodes(Map<String, Object> columns,String con);
+	int updateFunNodes(Map<String, UserSqlValue> columns,String con);
 	
 	/**
 	 * 删除功能节点

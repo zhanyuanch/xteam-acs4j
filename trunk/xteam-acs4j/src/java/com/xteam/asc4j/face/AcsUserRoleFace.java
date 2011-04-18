@@ -10,6 +10,7 @@ package com.xteam.asc4j.face;
 import java.util.Map;
 
 import com.xteam.asc4j.base.PageInfo;
+import com.xteam.asc4j.base.UserSqlValue;
 import com.xteam.asc4j.module.entities.PurviewRole;
 import com.xteam.asc4j.module.entities.PurviewUser;
 
@@ -27,7 +28,7 @@ public interface AcsUserRoleFace {
 	 * @return List<PurviewRole>
 	 * @author:Leo
 	 */
-	PageInfo<PurviewRole> getRoleList(int start,int length,Map<String,Object> con);
+	PageInfo<PurviewRole> getRoleList(int start,int length,Map<String,UserSqlValue> con);
 	
 	/**
 	 * 获得对应用的角色信息
@@ -62,7 +63,7 @@ public interface AcsUserRoleFace {
 	 * @return int 受影响的数据条数
 	 * @author:Leo
 	 */
-	int updateRoles(Map<String, Object> columns,String con);
+	int updateRoles(Map<String, UserSqlValue> columns,String con);
 	
 	/**
 	 * 批量删除角色信息

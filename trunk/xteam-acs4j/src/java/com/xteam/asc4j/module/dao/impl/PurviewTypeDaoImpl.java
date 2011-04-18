@@ -15,5 +15,12 @@ import com.xteam.asc4j.module.entities.PurviewType;
  *
  */
 public class PurviewTypeDaoImpl extends GenericDaoImple<PurviewType> implements IPurviewTypeDao {
-
+	private static PurviewTypeDaoImpl instance;
+	private PurviewTypeDaoImpl(){}
+	public static PurviewTypeDaoImpl getInstance(){
+		if(null==instance){
+			instance = new PurviewTypeDaoImpl();
+		}
+		return instance;
+	}
 }
