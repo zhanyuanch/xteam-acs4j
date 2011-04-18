@@ -7,9 +7,10 @@
  */
 package com.xteam.asc4j.face;
 
-import java.util.List;
 import java.util.Map;
 
+import com.xteam.asc4j.base.PageInfo;
+import com.xteam.asc4j.base.UserSqlValue;
 import com.xteam.asc4j.module.entities.PurviewType;
 
 /**
@@ -26,8 +27,8 @@ public interface AcsPurviewTypeFace {
 	 * @return List<PurviewType>
 	 * @author:Leo
 	 */
-	List<PurviewType> getPurviewTypeList(int start, int leng,
-			Map<String, Object> con);
+	PageInfo<PurviewType> getPurviewTypeList(int start, int leng,
+			Map<String, UserSqlValue> con);
 	
 	/**
 	 * 添加一个权限数据
@@ -48,15 +49,15 @@ public interface AcsPurviewTypeFace {
 	 * 批量修改一组数据
 	 * @param param 修改内容
 	 * @param con 条件
-	 * @return int 收到影响的数据
+	 * @return int 
 	 * @author:Leo
 	 */
-	int updateTypes(Map<String, Object> param,String con);
+	int updateTypes(Map<String, UserSqlValue> param,String con);
 	
 	/**
 	 * 删除权限数据
 	 * @param tid
-	 * @return int
+	 * @return int 1表示成功，0表示失败
 	 * @author:Leo
 	 */
 	int deleteType(String[] tid);

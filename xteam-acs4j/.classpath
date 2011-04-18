@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="/XMLib/ourLib/jdbc/mysql-connector-java-5.1.13-bin.jar"/>
 	<classpathentry kind="lib" path="/XMLib/openLib/log/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="/XMLib/ourLib/biglib/Hibernate-3.3.2-ALL.jar"/>
+	<classpathentry kind="lib" path="/XMLib/openLib/commons/commons-beanutils.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -15,5 +15,12 @@ import com.xteam.asc4j.module.entities.PurviewFunDtype;
  *
  */
 public class PurviewFunDtypeDaoImpl extends GenericDaoImple<PurviewFunDtype> implements IPurviewFunDtypeDao {
-
+	private static PurviewFunDtypeDaoImpl instance;
+	private PurviewFunDtypeDaoImpl(){}
+	public static PurviewFunDtypeDaoImpl getInstance(){
+		if(null==instance){
+			instance = new PurviewFunDtypeDaoImpl();
+		}
+		return instance;
+	}
 }

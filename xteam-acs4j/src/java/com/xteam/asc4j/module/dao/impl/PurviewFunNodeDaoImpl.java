@@ -15,5 +15,12 @@ import com.xteam.asc4j.module.entities.PurviewFunNode;
  *
  */
 public class PurviewFunNodeDaoImpl extends GenericDaoImple<PurviewFunNode> implements IPurviewFunNodeDao{
-
+	private static PurviewFunNodeDaoImpl instance;
+	private PurviewFunNodeDaoImpl(){}
+	public static PurviewFunNodeDaoImpl getInstance(){
+		if(null==instance){
+			instance = new PurviewFunNodeDaoImpl();
+		}
+		return instance;
+	}
 }

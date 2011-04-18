@@ -15,5 +15,12 @@ import com.xteam.asc4j.module.entities.PurviewUserRole;
  *
  */
 public class PurviewUserRoleDaoImpl extends GenericDaoImple<PurviewUserRole> implements IPurviewUserRoleDao{
-
+	private static PurviewUserRoleDaoImpl instance;
+	private PurviewUserRoleDaoImpl(){}
+	public static PurviewUserRoleDaoImpl getInstance(){
+		if(null==instance){
+			instance = new PurviewUserRoleDaoImpl();
+		}
+		return instance;
+	}
 }
