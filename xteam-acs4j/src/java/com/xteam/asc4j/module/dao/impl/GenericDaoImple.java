@@ -145,7 +145,7 @@ public class GenericDaoImple<T> implements GenericDao<T> {
 	}
 
 	public Session getDaoSession() {
-		return null;
+		return this.getSession();
 	}
 
 	public List getListByHQL(String hql, Object[] params, int start, int length) {
@@ -259,7 +259,7 @@ public class GenericDaoImple<T> implements GenericDao<T> {
 			Query query = ses.createQuery(hql);
 			setQueryParams(query, queryParams);
 			queryResult.setTotalCount(query.list().size());
-			if (firstindex != -1 && maxresult != -1) {
+			if (firstindex != -1 && maxresult != 0) {
 				query.setFirstResult(firstindex).setMaxResults(maxresult);
 			}
 			queryResult.setDataList(query.list());

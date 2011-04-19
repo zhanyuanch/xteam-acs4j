@@ -106,7 +106,7 @@ public interface AcsUserFunFace {
 	
 	
 	/**
-	 * 设置角色的公呢个模块
+	 * 设置角色的模块，删除之前的信息，并新建
 	 * @param role 角色对象
 	 * @param node 功能模块组 
 	 * @return void
