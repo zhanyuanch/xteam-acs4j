@@ -3,6 +3,7 @@ package com.xteam.asc4j.face.impl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -16,6 +17,7 @@ import com.xteam.asc4j.face.AcsUserFunFace;
 import com.xteam.asc4j.module.dao.base.GenericDao;
 import com.xteam.asc4j.module.dao.impl.PurviewFunDtypeDaoImpl;
 import com.xteam.asc4j.module.dao.impl.PurviewFunNodeDaoImpl;
+import com.xteam.asc4j.module.dao.impl.PurviewRoleDaoImpl;
 import com.xteam.asc4j.module.dao.impl.PurviewRoleFunDataruleDaoImpl;
 import com.xteam.asc4j.module.dao.impl.PurviewUserFunDataruleDaoImpl;
 import com.xteam.asc4j.module.entities.PurviewFunDtype;
@@ -37,6 +39,8 @@ public class AcsUserFun implements AcsUserFunFace {
 
 	private GenericDao<PurviewUserFunDatarule> userFunData = PurviewUserFunDataruleDaoImpl
 			.getInstance();
+
+	private GenericDao<PurviewRole> roleData = PurviewRoleDaoImpl.getInstance();
 
 	public void addFunNode(PurviewFunNode node) {
 		this.funNode.save(node);
@@ -196,15 +200,16 @@ public class AcsUserFun implements AcsUserFunFace {
 		try {
 			String sql = "select f.* from PURVIEW_FUN_NODE f,PURVIEW_USER_FUN_DATARULE uf"
 					+ " where f.id = ur.FUN_ID and ur.USER_ID=?";
-			String csql = "select count(1) from PURVIEW_FUN_NODE f," +
-					"PURVIEW_USER_FUN_DATARULE uf"
+			String csql = "select count(1) from PURVIEW_FUN_NODE f,"
+					+ "PURVIEW_USER_FUN_DATARULE uf"
 					+ " where f.id = ur.FUN_ID and ur.USER_ID=?";
-			page.setTotalCount(funNode.getCountBySQLParams(csql, new Object[]{userid}));
+			page.setTotalCount(funNode.getCountBySQLParams(csql,
+					new Object[] { userid }));
 			Session ses = funNode.getDaoSession();
 			SQLQuery q = ses.createSQLQuery(sql);
 			q.setParameter(0, userid);
 			q.addEntity(PurviewFunNode.class);
-			if(start!=-1 && length!=0){
+			if (start != -1 && length != 0) {
 				q.setFirstResult(start);
 				q.setMaxResults(length);
 			}
@@ -216,11 +221,12 @@ public class AcsUserFun implements AcsUserFunFace {
 	}
 
 	public void setRoleFunNode(PurviewRole role, PurviewFunNode[] node) {
-		String hql="";
-		for(PurviewFunNode n :node){
-			hql ="delete from PurviewRoleFunDatarule where roleId=? and funId=?";
-			this.funNode.executeHQL(hql, new Object[]{role.getId(),n.getId()});//删除之前的模块角色信息
-			//信件角色模块信息
+		String hql = "";
+		for (PurviewFunNode n : node) {
+			hql = "delete from PurviewRoleFunDatarule where roleId=? and funId=?";
+			this.funNode.executeHQL(hql,
+					new Object[] { role.getId(), n.getId() });// 删除之前的模块角色信息
+			// 信件角色模块信息
 			PurviewRoleFunDatarule rfd = new PurviewRoleFunDatarule();
 			rfd.setRoleId(role.getId());
 			rfd.setRoleName(role.getName());
@@ -230,10 +236,26 @@ public class AcsUserFun implements AcsUserFunFace {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void setRoleFunPermission(String roleid, String funid, int[] p) {
-		String hql ="";
-		for(int n :p){
-			
+		String hql = "";
+		for (int n : p) {
+			hql = "From PurviewRoleFunDatarule where roleId=? and funId=? and funPlist=?";
+			List<PurviewRoleFunDatarule> r = this.roleFunData.getListByHQL(hql,
+					new Object[] { roleid, funid, new Integer(n) }, 0, 0);
+			if (r == null || r.size() == 0) {
+				PurviewRoleFunDatarule rfd = new PurviewRoleFunDatarule();
+				PurviewRole role = roleData.findById(roleid);
+				PurviewFunNode node = funNode.findById(funid);
+				if (role != null && node != null) {
+					rfd.setRoleId(role.getId());
+					rfd.setRoleName(role.getName());
+					rfd.setFunId(node.getId());
+					rfd.setFunName(node.getName());
+					rfd.setFunPlist(n);
+					this.roleFunData.save(rfd);
+				}
+			}
 		}
 	}
 
@@ -247,7 +269,7 @@ public class AcsUserFun implements AcsUserFunFace {
 
 	public int updateFunNodes(Map<String, UserSqlValue> columns, String con) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 0; 
 	}
 
 	public GenericDao<PurviewFunNode> getFunNode() {
@@ -280,6 +302,14 @@ public class AcsUserFun implements AcsUserFunFace {
 
 	public void setUserFunData(GenericDao<PurviewUserFunDatarule> userFunData) {
 		this.userFunData = userFunData;
+	}
+
+	public GenericDao<PurviewRole> getRoleData() {
+		return roleData;
+	}
+
+	public void setRoleData(GenericDao<PurviewRole> roleData) {
+		this.roleData = roleData;
 	}
 
 }
