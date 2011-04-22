@@ -221,11 +221,11 @@ public class AcsUserFun implements AcsUserFunFace {
 	}
 
 	public void setRoleFunNode(PurviewRole role, PurviewFunNode[] node) {
-		String hql = "";
+//		String hql = "";
 		for (PurviewFunNode n : node) {
-			hql = "delete from PurviewRoleFunDatarule where roleId=? and funId=?";
-			this.funNode.executeHQL(hql,
-					new Object[] { role.getId(), n.getId() });// 删除之前的模块角色信息
+//			hql = "delete from PurviewRoleFunDatarule where roleId=? and funId=?";
+//			this.funNode.executeHQL(hql,
+//					new Object[] { role.getId(), n.getId() });// 删除之前的模块角色信息
 			// 信件角色模块信息
 			PurviewRoleFunDatarule rfd = new PurviewRoleFunDatarule();
 			rfd.setRoleId(role.getId());
@@ -260,15 +260,41 @@ public class AcsUserFun implements AcsUserFunFace {
 	}
 
 	public void setUserFunNode(PurviewUser user, PurviewFunNode[] node) {
-
+		for(PurviewFunNode n :node){
+			PurviewUserFunDatarule ufd = new PurviewUserFunDatarule();
+			ufd.setUserId(user.getId());
+			ufd.setUserName(user.getUname());
+			ufd.setFunId(n.getId());
+			ufd.setFunName(n.getName());
+			this.userFunData.save(ufd);
+		}
 	}
 
-	public void setUserFunPermission(String userid, String funid, int[] p) {
-
+	@SuppressWarnings("unchecked")
+	public void setUserFunPermission(PurviewUser user, String funid, int[] p) {
+		String hql = "";
+		for (int n : p) {
+			hql = "From PurviewUserFunDatarule where userId=? and funId=? and funPlist=?";
+			List<PurviewUserFunDatarule> r = this.roleFunData.getListByHQL(hql,
+					new Object[] { user.getId(), funid, new Integer(n) }, 0, 0);
+			if (r == null || r.size() == 0) {
+				PurviewUserFunDatarule rfd = new PurviewUserFunDatarule();
+				PurviewRole role = roleData.findById(user.getId());
+				PurviewFunNode node = funNode.findById(funid);
+				if (role != null && node != null) {
+					rfd.setUserId(user.getId());
+					rfd.setUserName(user.getUname());
+					rfd.setFunId(node.getId());
+					rfd.setFunName(node.getName());
+					rfd.setFunPlist(n);
+					this.userFunData.save(rfd);
+				}
+			}
+		}
 	}
 
 	public int updateFunNodes(Map<String, UserSqlValue> columns, String con) {
-		// TODO Auto-generated method stub
+		
 		return 0; 
 	}
 

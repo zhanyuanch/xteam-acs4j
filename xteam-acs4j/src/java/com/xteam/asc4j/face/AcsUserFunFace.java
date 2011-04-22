@@ -139,7 +139,7 @@ public interface AcsUserFunFace {
 	 * @return void
 	 * @author:Leo
 	 */
-	void setUserFunPermission(String userid,String funid,int[] p);
+	void setUserFunPermission(PurviewUser user,String funid,int[] p);
 	
 	/**
 	 * 删除指定用户、指定模块的权限
