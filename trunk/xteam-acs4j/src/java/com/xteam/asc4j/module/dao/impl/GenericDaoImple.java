@@ -41,8 +41,12 @@ public class GenericDaoImple<T> implements GenericDao<T> {
 
 	public void delete(T entity) {
 		Session s = this.getSession();
+		Transaction tx = s.beginTransaction();
 		try {
 			s.delete(entity);
+			tx.commit();
+		} catch (Exception ex) {
+			tx.rollback();
 		} finally {
 			s.close();
 		}
@@ -60,9 +64,9 @@ public class GenericDaoImple<T> implements GenericDao<T> {
 
 	public void executeHQL(String hql, Object[] params) {
 		Session ses = this.getDaoSession();
-		Transaction tx=null;
+		Transaction tx = null;
 		try {
-			tx  = ses.beginTransaction();
+			tx = ses.beginTransaction();
 			Query q = ses.createQuery(hql);
 			if (params != null && params.length != 0) {
 				for (int i = 0; i < params.length; i++) {
@@ -72,7 +76,7 @@ public class GenericDaoImple<T> implements GenericDao<T> {
 			q.executeUpdate();
 			tx.commit();
 		} catch (RuntimeException e) {
-			if(null!=tx){
+			if (null != tx) {
 				tx.rollback();
 			}
 			throw e;
@@ -87,7 +91,7 @@ public class GenericDaoImple<T> implements GenericDao<T> {
 
 	public void executeSQL(String sql, Object[] params) {
 		Session ses = this.getDaoSession();
-		Transaction tx =null;
+		Transaction tx = null;
 		try {
 			tx = ses.beginTransaction();
 			SQLQuery q = ses.createSQLQuery(sql);
@@ -99,7 +103,7 @@ public class GenericDaoImple<T> implements GenericDao<T> {
 			q.executeUpdate();
 			tx.commit();
 		} catch (RuntimeException e) {
-			if(null!=tx){
+			if (null != tx) {
 				tx.rollback();
 			}
 			throw e;
@@ -292,18 +296,26 @@ public class GenericDaoImple<T> implements GenericDao<T> {
 
 	public void save(T entity) {
 		Session ses = this.getSession();
-		try{
+		Transaction tx = ses.beginTransaction();
+		try {
 			ses.save(entity);
-		}finally{
+			tx.commit();
+		} catch (Exception ex) {
+			tx.rollback();
+		} finally {
 			ses.close();
 		}
 	}
 
 	public void update(T e) {
 		Session ses = this.getSession();
-		try{
+		Transaction tx = ses.beginTransaction();
+		try {
 			ses.merge(e);
-		}finally{
+			tx.commit();
+		} catch (Exception ex) {
+			tx.rollback();
+		} finally {
 			ses.close();
 		}
 	}
